@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  background: #070a12;
+  font-family: 'DM Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(131, 58, 180, 0.26), transparent 34rem),
+    radial-gradient(circle at top right, rgba(252, 176, 69, 0.18), transparent 30rem),
+    #070a12;
+  color: #f7f7fb;
+}
+
+button,
+input,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.instagram-gradient {
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 52%, #fcb045 100%);
+}
+
+.card-border {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(16, 22, 36, 0.78);
+  backdrop-filter: blur(18px);
+}
+
+.focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(252, 176, 69, 0.18);
+}
