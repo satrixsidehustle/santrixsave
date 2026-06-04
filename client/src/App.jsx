@@ -89,17 +89,17 @@ function App() {
     <div className="min-h-screen overflow-hidden">
       <Header />
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 pb-12 pt-8 sm:px-6 lg:px-8">
-        <section id="home" className="grid gap-8 py-4 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-10">
+        <section id="home" className="grid gap-8 py-4 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:py-10">
           <div className="space-y-8">
             <div className="space-y-4">
               <p className="w-fit rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-amber">
-                Public Instagram media downloader
+                Free Online Instagram Downloader
               </p>
               <h1 className="font-heading text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl">
-                Download Reels, Posts, Stories & more in seconds.
+                Download Instagram Reels & Posts Free Online
               </h1>
               <p className="max-w-2xl text-lg text-slate-300">
-                Paste a public Instagram URL, preview the available media, and save the version you want directly to your device.
+                Save Instagram reels, videos, stories, and carousel posts in HD quality without any watermark. The fastest online downloader tool, with no login required.
               </p>
             </div>
             <UrlInput
@@ -109,20 +109,20 @@ function App() {
               error={error}
               onSubmit={handleSubmit}
             />
+
+            {mediaData && (
+              <Suspense fallback={<div className="card-border h-40 animate-pulse rounded-lg" />}>
+                <MediaPreview
+                  data={mediaData}
+                  apiBaseUrl={apiBaseUrl}
+                />
+              </Suspense>
+            )}
           </div>
           <div className="card-border animate-reveal rounded-lg p-5 shadow-glow">
             <SupportedFormats />
           </div>
         </section>
-
-        {mediaData && (
-          <Suspense fallback={<div className="card-border h-40 animate-pulse rounded-lg" />}>
-            <MediaPreview
-              data={mediaData}
-              apiBaseUrl={apiBaseUrl}
-            />
-          </Suspense>
-        )}
 
         {history.length > 0 && (
           <section className="space-y-4">
@@ -166,15 +166,23 @@ function App() {
         </section>
 
         <section id="faq" className="card-border rounded-lg p-6">
-          <h2 className="font-heading text-2xl font-bold text-white">FAQ</h2>
+          <h2 className="font-heading text-2xl font-bold text-white">Frequently Asked Questions</h2>
           <div className="mt-5 grid gap-5 md:grid-cols-2">
             <div>
-              <h3 className="font-semibold text-white">Can it download private posts?</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-300">No. SantrixSave only works with public content that the API can access.</p>
+              <h3 className="font-semibold text-white">Can I download private Instagram videos or stories?</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-300">No. SantrixSave only supports public content. Private videos, reels, and stories require account authentication and cannot be accessed by our tool.</p>
             </div>
             <div>
-              <h3 className="font-semibold text-white">Why use a proxy endpoint?</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-300">Instagram media links often block direct browser downloads, so the backend streams the file for you.</p>
+              <h3 className="font-semibold text-white">How do I download Instagram reels to Android or iPhone?</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-300">Simply copy the link of the Instagram reel, paste it in the search input above, and click Download. Once processed, select the quality version you want and it will download automatically to your phone's gallery without installing any app.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-white">Do I need to log in with my Instagram details?</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-300">No login or register is required. SantrixSave is completely free and lets you save public Instagram videos, posts, and carousels anonymously without entering your credentials.</p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-white">Why is a proxy server used for downloads?</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-300">Instagram CDN servers block direct browser downloads with CORS policies. Our backend streams the media directly to your device via a proxy connection to bypass these restrictions.</p>
             </div>
           </div>
         </section>

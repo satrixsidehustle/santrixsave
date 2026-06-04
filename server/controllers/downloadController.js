@@ -4,8 +4,8 @@ const https = require('https');
 const { fetchInstagramMedia } = require('../utils/instagramFetcher');
 
 const INSTAGRAM_URL_REGEX = /^https?:\/\/(www\.)?instagram\.com\/[A-Za-z0-9._/?=&%-]+\/?$/i;
-const httpAgent = new http.Agent({ keepAlive: true });
-const httpsAgent = new https.Agent({ keepAlive: true });
+const httpAgent = new http.Agent({ keepAlive: true, maxSockets: 256, keepAliveMsecs: 1000 });
+const httpsAgent = new https.Agent({ keepAlive: true, maxSockets: 256, keepAliveMsecs: 1000 });
 
 function detectContentType(rawUrl) {
   const { pathname } = new URL(rawUrl);
@@ -118,7 +118,7 @@ async function proxyDownload(req, res, next) {
     });
 
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-    res.setHeader('Content-Type', response.headers['content-type'] || contentType);
+    res.setHeader('Content-Type', 'application/octet-stream');
 
     if (response.headers['content-length']) {
       res.setHeader('Content-Length', response.headers['content-length']);

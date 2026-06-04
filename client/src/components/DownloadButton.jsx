@@ -11,16 +11,9 @@ function DownloadButton({ media, index, apiBaseUrl }) {
 
   function handleDownload() {
     setDownloading(true);
-
     const downloadUrl = `${apiBaseUrl}/api/proxy-download?url=${encodeURIComponent(media.url)}`;
-    const link = document.createElement('a');
-    link.href = downloadUrl;
-    link.download = getFilename(media, index);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-
-    window.setTimeout(() => setDownloading(false), 1000);
+    window.location.href = downloadUrl;
+    window.setTimeout(() => setDownloading(false), 2000);
   }
 
   async function copyLink() {
@@ -51,10 +44,10 @@ function DownloadButton({ media, index, apiBaseUrl }) {
             type="button"
             onClick={handleDownload}
             disabled={downloading}
-            className="instagram-gradient inline-flex h-10 min-w-32 items-center justify-center gap-2 rounded-lg px-4 font-bold text-white transition hover:scale-[1.02] disabled:opacity-70"
+            className="instagram-gradient inline-flex h-10 min-w-36 items-center justify-center gap-2 rounded-lg px-4 font-bold text-white transition hover:scale-[1.02] disabled:opacity-70"
           >
             {downloading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-            {downloading ? 'Starting' : 'Save'}
+            {downloading ? 'Downloading' : 'Download'}
           </button>
         </div>
       </div>

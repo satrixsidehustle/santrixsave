@@ -112,7 +112,7 @@ async function fetchWithRapidApi(url) {
 
   const response = await axios.get(`https://${host}/fetch`, {
     params: { url },
-    timeout: 30000,
+    timeout: 8000,
     headers: {
       'X-RapidAPI-Key': apiKey,
       'X-RapidAPI-Host': host
@@ -140,7 +140,7 @@ async function fetchProfilePicture(url) {
       __a: 1,
       __d: 'dis'
     },
-    timeout: 30000,
+    timeout: 8000,
     headers: {
       Accept: 'application/json',
       'User-Agent':

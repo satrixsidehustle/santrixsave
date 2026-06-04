@@ -31,12 +31,12 @@ function MediaPreview({ data, apiBaseUrl }) {
 
   return (
     <section className="card-border animate-reveal overflow-hidden rounded-lg">
-      <div className="grid gap-0 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="relative min-h-72 bg-black">
+      <div className="grid gap-0 sm:grid-cols-[0.85fr_1.15fr]">
+        <div className="relative min-h-[18rem] sm:min-h-full bg-black">
           <img
             src={data.thumbnail || mediaOptions[0]?.url}
             alt=""
-            className="h-full min-h-72 w-full object-cover"
+            className="h-full min-h-[18rem] sm:min-h-full w-full object-cover"
           />
           <span className="instagram-gradient absolute left-4 top-4 rounded-full px-3 py-1 text-sm font-bold text-white">
             {labels[data.type] || data.type}
