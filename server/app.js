@@ -1,6 +1,7 @@
 const express = require('express');
 const compression = require('compression');
 const cors = require('cors');
+const fs = require('fs');
 const path = require('path');
 
 const downloadRoutes = require('./routes/download');
@@ -29,22 +30,33 @@ app.use('/api', downloadRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   const clientDist = path.join(__dirname, '..', 'client', 'dist');
-  app.use(
-    express.static(clientDist, {
-      maxAge: '1y',
-      immutable: true,
-      setHeaders: (res, filePath) => {
-        if (filePath.endsWith('index.html')) {
-          res.setHeader('Cache-Control', 'no-cache');
+  const clientIndex = path.join(clientDist, 'index.html');
+
+  if (fs.existsSync(clientIndex)) {
+    app.use(
+      express.static(clientDist, {
+        maxAge: '1y',
+        immutable: true,
+        setHeaders: (res, filePath) => {
+          if (filePath.endsWith('index.html')) {
+            res.setHeader('Cache-Control', 'no-cache');
+          }
         }
-      }
-    })
-  );
-  app.get('*', (_req, res) => {
-    res.setHeader('Cache-Control', 'no-cache');
-    res.sendFile(path.join(clientDist, 'index.html'));
-  });
+      })
+    );
+    app.get('*', (_req, res) => {
+      res.setHeader('Cache-Control', 'no-cache');
+      res.sendFile(clientIndex);
+    });
+  }
 }
+
+app.use((_req, res) => {
+  res.status(404).json({
+    success: false,
+    error: 'Route not found.'
+  });
+});
 
 app.use((err, _req, res, _next) => {
   console.error(err);
